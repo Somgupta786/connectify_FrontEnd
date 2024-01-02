@@ -1,4 +1,6 @@
+
 .loginMain{
+
     background-image: url("../../assets/authBack.svg");
     position: relative;
     /* background-image: url("../../assets/logoo.svg"); */
@@ -12,3 +14,17 @@ width: 584px;
    right: 0;
    bottom: 0;
 }
+.account{
+    color: #FFF;
+
+text-align: right;
+/* web/heading/light/02 */
+font-family: 'SF Pro Display', sans-serif;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
+input::placeholder {
+    color: #F5FEF9 !important;
+  }
