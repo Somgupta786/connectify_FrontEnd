@@ -1,0 +1,14 @@
+.loginMain{
+    background-image: url("../../assets/authBack.svg");
+    position: relative;
+    /* background-image: url("../../assets/logoo.svg"); */
+}
+.rightImg{
+width: 584px;
+   height: 88.052vh;
+   background-image: url("../../assets/logoo.svg");
+   background-size: cover;
+   position: absolute;
+   right: 0;
+   bottom: 0;
+}
