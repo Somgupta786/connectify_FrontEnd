@@ -20,18 +20,23 @@ export default function Layout({ children }) {
       <div className="progress-bar mt-[26px]">
         <div className="progress-step start"></div>
         <div className="progress-step middle" style={
-            router === '/signup/verify'
+            router == '/signup/verify' || "signup/verify/details"
               ? { backgroundColor:"#75FBB9" }
               : {}
           }></div>
-        <div className="progress-step end"></div>
+        <div className="progress-step end" style={
+            router === '/signup/verify/details'
+              ? { backgroundColor:"#75FBB9" }
+              : {}
+          }></div>
         <div
           className="progress-bar-inner"
           style={
             router === '/signup'
               ? { width: '0%' }
               : router === '/signup/verify'
-              ? { transition: 'width 3s ease-in-out',width: '50%', }
+              ? { transition: 'width 3s ease-in-out',width: '50%', }: router === '/signup/verify/details'
+              ? { transition: 'width 3s ease-in-out',width: '100%', }
               : {}
           }
         ></div>

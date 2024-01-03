@@ -36,7 +36,7 @@ const page = () => {
         <div className=" w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
           <button type="submit" className=" flex gap-[16px]">
          <img className=" self-center" src="/google.svg"/>
-         <span className=" font-sans text-[24px] font-semibold text-[#FFF]"> Signin with google</span>
+         <span className=" font-sans text-[24px] font-semibold text-[#FFF] "> Signin with google</span>
           </button>
         </div>
       </div>
