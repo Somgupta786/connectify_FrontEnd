@@ -63,3 +63,28 @@
   border-radius:7px;
   background-color: #16202A;
 }
+.loader{
+  animation: animate 2s ease-in-out infinite;
+}
+@keyframes animate {
+  50% {
+    transform: translateX(44px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.loaderr{
+  animation: animates 2s ease-in-out infinite;
+}
+@keyframes animates {
+  50% {
+    transform: translateX(-44px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.btn:hover{
+cursor: pointer;
+}

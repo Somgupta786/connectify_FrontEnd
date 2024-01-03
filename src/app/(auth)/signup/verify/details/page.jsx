@@ -1,5 +1,5 @@
 import React from "react";
-
+import Loader from "@/components/loader";
 const page = () => {
   return (
     <div className=" flex flex-col gap-[14.3vh]">
@@ -22,8 +22,9 @@ const page = () => {
       <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
         <button type="submit" className=" font-sans text-[24px] font-semibold">
           {" "}
-          FINISH
+         
         </button>
+        <Loader/>
       </div>
     </div>
   );

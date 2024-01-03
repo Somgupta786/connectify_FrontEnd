@@ -118,8 +118,8 @@ const Page = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-[34px]">
-        <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px]">
+      <div className="mt-[34px] text-[#F5FEF9]">
+        <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px] ">
           <input
             className="bg-transparent  h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -132,7 +132,7 @@ const Page = () => {
           />
           <hr className="border-b-2 border-[#9A9DA1] " />
         </div>
-        <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px]">
+        <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px] ">
           <input
             className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required

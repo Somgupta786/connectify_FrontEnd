@@ -20,7 +20,7 @@ export default function Layout({ children }) {
       <div className="progress-bar mt-[26px]">
         <div className="progress-step start"></div>
         <div className="progress-step middle" style={
-            router == '/signup/verify' || "signup/verify/details"
+            router !== '/signup'
               ? { backgroundColor:"#75FBB9" }
               : {}
           }></div>

@@ -57,7 +57,7 @@ const verifyHandler = async(e)=>{
     
    
     if (response.data) {
-      console.log("fff")
+      
       router.push("/signup/verify/details")
     }
   } catch(error){
