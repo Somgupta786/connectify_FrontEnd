@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 const Page = () => {
   const router = useRouter()
-  const email = JSON.parse(localStorage.getItem('email'));
+  const email = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('email')) : null;
   
   
   const [code, setOTP] = useState(['', '', '', '']);
