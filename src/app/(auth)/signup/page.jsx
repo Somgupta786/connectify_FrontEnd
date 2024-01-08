@@ -6,7 +6,7 @@ import axios from "axios";
 import Loader from "@/components/loader";
 
 
-const Page = () => {
+const Signup = () => {
   const router = useRouter();
 
   const [error, setError] = useState({
@@ -87,8 +87,10 @@ const validateInput = (name, value) => {
         }
       } catch (error) {
         
-        setError(error);
-        console.log(error.response.data);
+        setError({
+          ...error,
+          email: error.response?.data?.message || "An error occurred",
+        });
         setLoad(false);
       }
     } else {
@@ -174,4 +176,4 @@ const validateInput = (name, value) => {
   );
 };
 
-export default Page;
+export default Signup;
