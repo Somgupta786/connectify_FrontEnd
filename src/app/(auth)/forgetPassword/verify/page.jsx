@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const email =
     typeof window !== "undefined"
@@ -152,4 +152,4 @@ letter-spacing: 0.72px;"
   );
 };
 
-export default page;
+export default Page;

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   const [error, setError] = useState({
@@ -169,4 +169,4 @@ const validateInput = (name, value) => {
   );
 };
 
-export default page;
+export default Page;
