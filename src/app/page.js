@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigaton';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const Home = () => {
     
     router.push('/signup');
   }, []);
-  
+
 
   return <div>Redirecting...</div>;
 };
