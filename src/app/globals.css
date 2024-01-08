@@ -64,27 +64,35 @@
   background-color: #16202A;
 }
 .loader{
-  animation: animate 2s ease-in-out infinite;
+  animation: animate 1.5s ease-in-out infinite;
 }
 @keyframes animate {
   50% {
     transform: translateX(44px);
+    background-color: #F0584F;
   }
   100% {
     transform: translateX(0px);
+    background-color: #EA63B9;
   }
 }
 .loaderr{
-  animation: animates 2s ease-in-out infinite;
+  animation: animates 1.5s ease-in-out infinite;
 }
 @keyframes animates {
   50% {
     transform: translateX(-44px);
+    background-color: #EA63B9;
   }
   100% {
     transform: translateX(0px);
+    background-color: #F0584F;
   }
 }
 .btn:hover{
 cursor: pointer;
+
+}
+::-webkit-scrollbar {
+  display: none;
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
+import Loader from "@/components/loader";
 
 
 const Page = () => {
@@ -21,48 +22,23 @@ const Page = () => {
   const [isLoad, setLoad] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  const validateInput = (name, value) => {
-    switch (name) {
-      case "fullname":
-        return value.trim() ? "" : "Full Name is required";
-      case "email":
-        return value.trim()
-          ? emailRegex.test(value)
-            ? ""
-            : "Invalid email address"
-          : "";
-      case "password":
-        if (!value.trim()) {
-          return "";
-        }
+const validateInput = (name, value) => {
+  switch (name) {
+    case "fullname":
+      return value.trim() ? "" : "Full Name is required";
+    case "email":
+      return value.trim() ? (emailRegex.test(value) ? "" : "Invalid email address") : "";
+    case "password":
+      return passwordRegex.test(value)
+        ? ""
+        : "Invalid Password";
+    default:
+      return "";
+  }
+};
 
-        const hasLowerCase = /[a-z]/.test(value);
-        const hasUpperCase = /[A-Z]/.test(value);
-        const hasDigit = /\d/.test(value);
-        const hasSpecialChar = /[@$!%*?&]/.test(value);
-
-        const requirements = [
-          hasLowerCase && "at least one lowercase letter",
-          hasUpperCase && "at least one uppercase letter",
-          hasDigit && "at least one digit",
-          hasSpecialChar && "at least one special character",
-        ].filter(Boolean);
-
-        if (requirements.length < 4) {
-          return `Password must contain ${requirements.join(
-            ", "
-          )}, and be at least 8 characters long`;
-        }
-
-        return "";
-
-      default:
-        return "";
-    }
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +52,7 @@ const Page = () => {
   const handleSubmit = async (e) => {
     setLoad(true);
     e.preventDefault();
-    console.log("g");
+   
 
    
     const errors = {};
@@ -98,18 +74,21 @@ const Page = () => {
           }
         );
 
-        setError(response.data);
+       
         setLoad(false);
-        console.log(response.data.success)
+       
         if (response.data.success) {
           localStorage.setItem('email',JSON.stringify(inputs.email))
           router.push( '/signup/verify');
         } else {
+          
           setLoad(false);
+          setError(response.data)
         }
       } catch (error) {
         
-        console.log(error);
+        setError(error);
+        console.log(error.response.data);
         setLoad(false);
       }
     } else {
@@ -185,9 +164,10 @@ const Page = () => {
       </div>
       <div className="mt-[53px] flex flex-col gap-[32px]">
         <div className="w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
-          <button type="submit" className="font-sans text-[24px] font-semibold">
+          {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
-          </button>
+          </button>:<Loader/>}
+          
         </div>
       </div>
     </form>
