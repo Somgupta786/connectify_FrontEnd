@@ -90,9 +90,10 @@ const verifyHandler = async(e)=>{
       console.log(error.response.data.message)
   }
 }
+
   return (
     <form onSubmit={verifyHandler}>
-      <div className=" text-white font-sans text-[24px] font-semibold mt-[48px] flex flex-col gap-[40px]">
+      <div className=" text-white font-sans text-[24px] font-semibold mt-[5.7vh] flex flex-col gap-[4.7vh]">
         <div>
           Verify yourself
           <div className="text-white font-sans text-[18px] font-medium line-height: 140%; /* 25.2px */ letter-spacing: 0.72px;">

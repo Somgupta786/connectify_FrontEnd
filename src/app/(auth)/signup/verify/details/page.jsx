@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const formRef =  useRef()
   const router = useRouter()
   const email = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('email')) : null;
   const [avatars, setAvatars] = useState([]);
@@ -72,10 +73,13 @@ const Page = () => {
     setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
   
+  const clickHandler = ()=>{
 
+    formRef.current.click();
+   }
   return (
-    <form onSubmit={submitHandler} className="flex flex-col gap-[12.3vh] mt-[52px]">
-      <div className=" flex flex-col gap-[43px]">
+    <form onSubmit={submitHandler} className="flex flex-col gap-[6.6vh] mt-[6.19vh]">
+      <div className=" flex flex-col gap-[5.11vh]">
         <div className="text-[#F5FEF9] font-sans text-2xl font-semibold">
           <div>Pick a Pic!</div>
           <div className="w-[46.4583vw] h-[138px] flex gap-[16px] items-center overflow-scroll ">
@@ -83,7 +87,7 @@ const Page = () => {
               <img
                 key={index}
                 src={avatar}
-                className="h-[64px] w-[64px] bg-transparent rounded-full 
+                className="btn h-[64px] w-[64px] bg-transparent rounded-full 
 "
                 onClick={() => selectHandler(avatar,index)}
               
@@ -121,8 +125,8 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
-      {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
+      <div  onClick={clickHandler} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
+      {!isLoad?<button ref={formRef} type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>:<Loader/>}
       </div>

@@ -1,12 +1,13 @@
 
 
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
 const Page = () => {
+  const formRef = useRef()
   const router = useRouter();
 
   const [error, setError] = useState({
@@ -20,7 +21,7 @@ const Page = () => {
 const validateInput = (name, value) => {
   switch (name) {
     case "email":
-      return value.trim() ? (emailRegex.test(value) ? "" : "Uh-oh! That's not a valid email.") : "";
+      return value.trim() ? (emailRegex.test(value) ? "" : "Uh-oh! That's not a valid email.") : "Email is required!";
     default:
       return "";
   }
@@ -86,11 +87,15 @@ const validateInput = (name, value) => {
       
     }
   };
+  const clickHandler = ()=>{
+
+    formRef.current.click();
+   }
   return (
     <form onSubmit={handleSubmit} className="w-[37.7%] flex flex-col absolute left-[145px] top-[26vh] ">
-         <div className="text-white font-sans text-[40px] font-semibold">Forgot Password?</div>
+         <div className="text-white font-sans text-[40px] font-semibold mb-[16px]">Forgot Password?</div>
          <div className="text-white font-sans text-[24px] font-semibold ">Enter you registered email</div>
-         <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mt-[10px] text-white ">
+         <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mt-[4.7vh] text-white ">
           <input
             className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -115,8 +120,8 @@ const validateInput = (name, value) => {
             </p>
           ) : null}
         </div>
-        <div className="w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[9.4vh]">
-          {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
+        <div onClick={clickHandler} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[8.5vh]">
+          {!isLoad?<button ref={formRef} type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>:<Loader/>}
         </div>

@@ -28,13 +28,13 @@ const validateInput = (name, value) => {
     case "fullname":
       return value.trim() ? "" : "Full Name is required";
     case "email":
-      return value.trim() ? (emailRegex.test(value) ? "" : "Uh-oh! That's not a valid email.") : "";
+      return value.trim() ? (emailRegex.test(value) ? "" : "Uh-oh! That's not a valid email.") : "Email is required!";
       case "password":
         return value.trim()
           ? passwordRegex.test(value)
             ? ""
             : generatePasswordErrorMessage(value)
-          : "";
+          : "Password is required!";
     default:
       return "";
   }
@@ -83,8 +83,10 @@ const generatePasswordErrorMessage = (value) => {
     Object.keys(inputs).forEach((name) => {
       const errorMessage = validateInput(name, inputs[name]);
       if (errorMessage) {
-        console.log(errorMessage)
+      
         errors[name] = errorMessage;
+        
+        
       }
     });
 
@@ -118,9 +120,13 @@ const generatePasswordErrorMessage = (value) => {
         setLoad(false);
       }
     } else {
-      console.log("f")
+      setError(errors);
       
     }
+  };
+  const handleParentDivClick = () => {
+  
+    handleSubmit(new Event('submit'));
   };
   return (
     <form  onSubmit={handleSubmit} className=" w-[37.7%] flex flex-col absolute left-[11.11vw] top-[18vh]">
@@ -179,7 +185,7 @@ const generatePasswordErrorMessage = (value) => {
       </div>
       <div className="btn text-[#35CCCD] font-sans text-base font-semibold leading-[145%] tracking-wider ml-auto" onClick={()=>router.push("/forgetPassword")}> Forget Password</div>
       <div className=" mt-[6.3vh] flex flex-col gap-[32px]">
-        <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
+        <div onClick={handleParentDivClick} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
         {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>:<Loader/>}

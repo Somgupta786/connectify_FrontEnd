@@ -107,8 +107,8 @@ const Page = () => {
     }
   };
   return (
-    <form onSubmit={verifyHandler} className="w-[37.7%] flex flex-col absolute left-[145px] top-[22vh]">
-      <div className="text-white font-sans text-[40px] font-semibold">
+    <form onSubmit={verifyHandler} className="w-[37.7%] flex flex-col absolute left-[145px] top-[22.4vh]">
+      <div className="text-white font-sans text-[40px] font-semibold mb-[3.8vh]">
         Reset Password
       </div>
       <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px]">
@@ -119,7 +119,7 @@ const Page = () => {
           name="password"
           value={inputs.password}
           onChange={handleInputChange}
-          placeholder="Password"
+          placeholder="New Password"
           maxLength={25}
         />
         <hr

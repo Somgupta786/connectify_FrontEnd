@@ -8,7 +8,7 @@ import Loader from "@/components/loader";
 
 
 const Page = () => {
- 
+ const formRef = useRef(null)
   const router = useRouter();
   const email =
     typeof window !== "undefined"
@@ -94,18 +94,21 @@ const Page = () => {
       
     }
   }
- 
+ const clickHandler = ()=>{
+
+  formRef.current.click();
+ }
   
   return (
     <form
     
       onSubmit={verifyHandler}
-      className="w-[37.7%] flex flex-col absolute left-[145px] top-[18vh]"
+      className="w-[37.7%] flex flex-col absolute left-[145px] top-[22.4vh]"
     >
       <div className="text-white font-sans text-[40px] font-semibold">
-        Forget Password
+        Forgot Password
       </div>
-      <div className=" text-white font-sans text-[24px] font-semibold  flex flex-col gap-[40px]">
+      <div className=" text-white font-sans text-[24px] font-semibold  flex flex-col gap-[40px] mt-[21px]">
         <div>
           Verify yourself
           <div
@@ -147,9 +150,9 @@ letter-spacing: 0.72px;"
           </div>
         )}
       </div>
-      <div  className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
+      <div onClick={clickHandler}  className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
         {!isLoad ? (
-          <button  type="submit" className="font-sans text-[24px] font-semibold">
+          <button ref={formRef}  type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>
         ) : (

@@ -25,19 +25,21 @@ const Signup = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const nameRegex = /^[a-zA-Z\s]+$/
+;
 
 const validateInput = (name, value) => {
   switch (name) {
     case "fullname":
-      return value.trim() ? "" : "Full Name is required";
+      return value.trim() ?(nameRegex.test(value)?  "": "Only Characters! ") : "Full Name is required";
     case "email":
-      return value.trim() ? (emailRegex.test(value) ? "" : "Invalid email address") : "";
+      return value.trim() ? (emailRegex.test(value) ? "" : "Invalid email address!") : "Email is required!";
       case "password":
         return value.trim()
           ? passwordRegex.test(value)
             ? ""
             : generatePasswordErrorMessage(value)
-          : "";
+          : "Password is required!";
     default:
       return "";
   }
@@ -78,7 +80,7 @@ const generatePasswordErrorMessage = (value) => {
   };
 
   const handleSubmit = async (e) => {
-    setLoad(true);
+   
     e.preventDefault();
    
 
@@ -92,6 +94,7 @@ const generatePasswordErrorMessage = (value) => {
     });
 
     if (Object.keys(errors).length === 0) {
+      setLoad(true);
       try {
         const response = await axios.post(
           "https://connectify-app.onrender.com/api/v1/auth/register",
@@ -126,6 +129,10 @@ const generatePasswordErrorMessage = (value) => {
     }
   };
   console.log(session)
+  const handleParentDivClick = () => {
+   
+    handleSubmit(new Event('submit'));
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="mt-[3.9vh] text-[#F5FEF9]">
@@ -140,7 +147,16 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Full Name"
             maxLength={25}
           />
-          <hr className="border-b-2 border-[#9A9DA1] " />
+          <hr className="border-b-2 border-[#9A9DA1] "style={
+              error.fullname
+                ? { borderColor: "#F41F41" }
+                : { borderColor: "#9A9DA1" }
+            } />
+          {error.fullname ? (
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+              {error.fullname}
+            </p>
+          ) : null}
         </div>
         <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
           <input
@@ -194,12 +210,12 @@ const generatePasswordErrorMessage = (value) => {
         </div>
       </div>
       <div className=" mt-[6.3vh] flex flex-col gap-[3.8vh]">
-        <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
+        <div onClick={handleParentDivClick} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
         {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>:<Loader/>}
         </div>
-        <div className=" w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
+        <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
           <button type="submit" className=" flex gap-[16px]">
          <img className=" self-center" src="/google.svg"/>
          <span className=" font-sans text-[24px] font-semibold text-[#FFF] " onClick={()=>signIn("google")}> Signup with google</span>
