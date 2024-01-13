@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
@@ -8,7 +8,7 @@ import { signIn, useSession } from "next-auth/react";
 
 
 const Signup = () => {
-  const session = useSession()
+  const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
 
   const [error, setError] = useState({
@@ -128,7 +128,19 @@ const generatePasswordErrorMessage = (value) => {
       setError(errors);
     }
   };
-  console.log(session)
+  const fetchAccessToken = async () => {
+    try {
+      const response = await axios.get('/src/app/api/getAccessToken');
+      setAccessToken(response.data.accessToken);
+      console.log(response.data.accessToken);
+    } catch (error) {
+      console.error('Error fetching access token:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAccessToken();
+  }, []);
   const handleParentDivClick = () => {
    
     handleSubmit(new Event('submit'));
