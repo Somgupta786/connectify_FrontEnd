@@ -55,7 +55,7 @@ const Page = () => {
       setLoad(false);
   
       if (response.data.success) {
-        router.push("/login");
+        router.push("/signup/verify");
       } else {
         console.error(response.data); 
       }

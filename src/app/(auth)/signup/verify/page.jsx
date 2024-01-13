@@ -82,7 +82,7 @@ const verifyHandler = async(e)=>{
    
     if (response.data) {
      
-      router.push("/signup/verify/details")
+      router.push("/login")
     }
   } catch(error){
     setLoad(false)

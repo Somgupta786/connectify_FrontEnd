@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
 
+
+
+
 const Page = () => {
+ 
   const router = useRouter();
   const email =
     typeof window !== "undefined"
@@ -49,6 +53,7 @@ const Page = () => {
     }
   };
   const verifyHandler = async (e) => {
+    console.log("g")
     setLoad(true);
     e.preventDefault();
     const otp = code.join("");
@@ -63,7 +68,7 @@ const Page = () => {
       setLoad(false);
 
       if (response.data) {
-        router.push("/signup/verify/details");
+        router.push("/forgetPassword/reset");
       }
     } catch (error) {
       setLoad(false);
@@ -80,7 +85,7 @@ const Page = () => {
        
  })
  if(response.data.success){
-  setError(response.data.message)
+ 
  }
     }
     catch(error){
@@ -89,8 +94,11 @@ const Page = () => {
       
     }
   }
+ 
+  
   return (
     <form
+    
       onSubmit={verifyHandler}
       className="w-[37.7%] flex flex-col absolute left-[145px] top-[18vh]"
     >
@@ -139,9 +147,9 @@ letter-spacing: 0.72px;"
           </div>
         )}
       </div>
-      <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
+      <div  className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
         {!isLoad ? (
-          <button type="submit" className="font-sans text-[24px] font-semibold">
+          <button  type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>
         ) : (

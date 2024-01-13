@@ -7,9 +7,9 @@ export default function Layout({ children }) {
   console.log(router)
   useEffect(() => {
     console.log("k")
-    // Ensure that the router is available on the client side
+  
     if (typeof window !== 'undefined') {
-      // Access the router.pathname here
+  
       console.log('Current Path:', router.pathname);
     }
   }, [router.pathname]);
@@ -25,7 +25,7 @@ export default function Layout({ children }) {
               : {}
           }></div>
         <div className="progress-step end" style={
-            router === '/signup/verify/details'
+            router === '/signup/verify'
               ? { backgroundColor:"#75FBB9" }
               : {}
           }></div>
@@ -35,8 +35,8 @@ export default function Layout({ children }) {
             router === '/signup'
               ? { width: '0%' }
               : router === '/signup/verify'
-              ? { transition: 'width 3s ease-in-out',width: '50%', }: router === '/signup/verify/details'
-              ? { transition: 'width 3s ease-in-out',width: '100%', }
+              ? { transition: 'width 3s ease-in-out',width: '100%', }: router === '/signup/verify/details'
+              ? { transition: 'width 3s ease-in-out',width: '50%', }
               : {}
           }
         ></div>

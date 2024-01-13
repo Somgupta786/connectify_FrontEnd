@@ -87,10 +87,10 @@ const validateInput = (name, value) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="w-[37.7%] flex flex-col absolute left-[145px] top-[26vh]">
+    <form onSubmit={handleSubmit} className="w-[37.7%] flex flex-col absolute left-[145px] top-[26vh] ">
          <div className="text-white font-sans text-[40px] font-semibold">Forgot Password?</div>
          <div className="text-white font-sans text-[24px] font-semibold ">Enter you registered email</div>
-         <div className="label w-[100%] h-[100px] pt-[35px] pb-[29px] mt-[10px]">
+         <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mt-[10px] text-white ">
           <input
             className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
