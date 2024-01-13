@@ -132,7 +132,7 @@ const generatePasswordErrorMessage = (value) => {
     <form  onSubmit={handleSubmit} className=" w-[37.7%] flex flex-col absolute left-[11.11vw] top-[18vh]">
       <div className=" text-[#fff] font-sans text-[2.5rem] font-semibold">Login</div>
       <div className=" flex flex-col gap-[8px] mt-[3.8vh] text-[#F5FEF9]">
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
           <input
            className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -143,6 +143,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Email"
             maxLength={40}
           />
+          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Email</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -157,7 +158,7 @@ const generatePasswordErrorMessage = (value) => {
             </p>
           ) : null}
         </div>
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
           <input
           className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -168,6 +169,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Password"
             maxLength={25}
           />
+          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Password</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={

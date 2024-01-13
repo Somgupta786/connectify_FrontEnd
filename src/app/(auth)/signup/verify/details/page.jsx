@@ -111,7 +111,7 @@ const Page = () => {
           <div className="text-[#F5FEF9] font-sans text-2xl font-semibold">
             Pick a username
           </div>
-          <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px] text-[#F5FEF9] font-sans text-2xl font-semibold">
+          <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px] text-[#F5FEF9] font-sans text-2xl font-semibold">
             <input
               className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
               required
@@ -121,6 +121,7 @@ const Page = () => {
               onChange={handleInputChange}
               placeholder="Username"
             />
+              {inputs.username?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Username</div>:null}
             <hr className="border-b-2 border-[#9A9DA1] mt-1"></hr>
           </div>
         </div>

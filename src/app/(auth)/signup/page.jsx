@@ -4,10 +4,12 @@ import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import handler from "@/app/api/getAccessToken";
 
 
 const Signup = () => {
+ const session = useSession();
   const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
 
@@ -129,26 +131,28 @@ const generatePasswordErrorMessage = (value) => {
     }
   };
   const fetchAccessToken = async () => {
-    try {
-      const response = await axios.get('/src/app/api/getAccessToken');
-      setAccessToken(response.data.accessToken);
-      console.log(response.data.accessToken);
-    } catch (error) {
-      console.error('Error fetching access token:', error);
-    }
+    // handler()
+    // try {
+    //   const response = await axios.get('api/getAccessToken');
+    //   setAccessToken(response.data.accessToken);
+    //   console.log(response.data.accessToken);
+    // } catch (error) {
+    //   console.error('Error fetching access token:', error);
+    // }
   };
 
-  useEffect(() => {
-    fetchAccessToken();
-  }, []);
+  // useEffect(() => {
+  //   fetchAccessToken();
+  // }, []);
   const handleParentDivClick = () => {
    
     handleSubmit(new Event('submit'));
   };
+  console.log(session)
   return (
     <form onSubmit={handleSubmit}>
       <div className="mt-[3.9vh] text-[#F5FEF9]">
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] relative">
           <input
             className="bg-transparent  h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -159,6 +163,8 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Full Name"
             maxLength={25}
           />
+          {inputs.fullname?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Full name</div>:null}
+          
           <hr className="border-b-2 border-[#9A9DA1] "style={
               error.fullname
                 ? { borderColor: "#F41F41" }
@@ -170,7 +176,7 @@ const generatePasswordErrorMessage = (value) => {
             </p>
           ) : null}
         </div>
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
           <input
             className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -181,6 +187,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Email"
             maxLength={40}
           />
+          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Email</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -195,7 +202,7 @@ const generatePasswordErrorMessage = (value) => {
             </p>
           ) : null}
         </div>
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
           <input
             className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
             required
@@ -206,6 +213,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Password"
             maxLength={25}
           />
+          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Password</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -228,7 +236,7 @@ const generatePasswordErrorMessage = (value) => {
           </button>:<Loader/>}
         </div>
         <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
-          <button type="submit" className=" flex gap-[16px]">
+          <button type="button" className=" flex gap-[16px]">
          <img className=" self-center" src="/google.svg"/>
          <span className=" font-sans text-[24px] font-semibold text-[#FFF] " onClick={()=>signIn("google")}> Signup with google</span>
           </button>

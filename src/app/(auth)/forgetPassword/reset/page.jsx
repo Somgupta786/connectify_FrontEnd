@@ -111,7 +111,7 @@ const Page = () => {
       <div className="text-white font-sans text-[40px] font-semibold mb-[3.8vh]">
         Reset Password
       </div>
-      <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px]">
+      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px]">
         <input
           className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
           required
@@ -122,6 +122,7 @@ const Page = () => {
           placeholder="New Password"
           maxLength={25}
         />
+          {inputs.password?<div className="tex absolute top-[3px] text-[18px] font-[500] ">Password</div>:null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
@@ -136,7 +137,7 @@ const Page = () => {
           </p>
         ) : null}
       </div>
-      <div className="label w-[100%] h-[100px] pt-[34px] pb-[29px]">
+      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px]">
         <input
           className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
           required
@@ -147,6 +148,7 @@ const Page = () => {
           placeholder="Confirm New Password"
           maxLength={25}
         />
+        {inputs.confirm?<div className="tex absolute top-[3px] text-[18px] font-[500] ">Confirm New Password</div>:null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
