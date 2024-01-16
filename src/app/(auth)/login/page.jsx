@@ -129,12 +129,12 @@ const generatePasswordErrorMessage = (value) => {
     handleSubmit(new Event('submit'));
   };
   return (
-    <form  onSubmit={handleSubmit} className=" w-[37.7%] flex flex-col absolute left-[11.11vw] top-[18vh]">
+    <form  onSubmit={handleSubmit} className=" w-[544px] flex flex-col absolute left-[11.11vw] top-[18vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[19.3vh]">
       <div className=" text-[#fff] font-sans text-[2.5rem] font-semibold">Login</div>
-      <div className=" flex flex-col gap-[8px] mt-[3.8vh] text-[#F5FEF9]">
-        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+      <div className=" flex flex-col gap-[8px] mt-[3.8vh] text-[#F5FEF9] mob:gap-[14px] mob:mt-[8vh] ">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[4.5vw]">
           <input
-           className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
+           className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[4.5vw]"
             required
             type="email"
             name="email"
@@ -143,7 +143,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Email"
             maxLength={40}
           />
-          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Email</div>:null}
+          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[3.3vw]">Email</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -153,14 +153,14 @@ const generatePasswordErrorMessage = (value) => {
             }
           />
           {error.email ? (
-            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[3.3vw]">
               {error.email}
             </p>
           ) : null}
         </div>
-        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]  mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[4.5vw]">
           <input
-          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
+          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[4.5vw]"
             required
             type="password"
             name="password"
@@ -169,7 +169,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Password"
             maxLength={25}
           />
-          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Password</div>:null}
+          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[3.3vw] ">Password</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -179,23 +179,23 @@ const generatePasswordErrorMessage = (value) => {
             }
           ></hr>
           {error.password ? (
-            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[3.3vw]">
               {error.password}
             </p>
           ) : null}
         </div>
       </div>
-      <div className="btn text-[#35CCCD] font-sans text-base font-semibold leading-[145%] tracking-wider ml-auto" onClick={()=>router.push("/forgetPassword")}> Forget Password</div>
-      <div className=" mt-[6.3vh] flex flex-col gap-[32px]">
+      <div className="btn text-[#35CCCD] font-sans text-base font-semibold leading-[145%] tracking-wider ml-auto mob:mt-[16px]" onClick={()=>router.push("/forgetPassword")}> Forgot Password?</div>
+      <div className=" mt-[6.3vh] flex flex-col gap-[32px] mob:mt-[8vh]">
         <div onClick={handleParentDivClick} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
         {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
             NEXT
           </button>:<Loader/>}
         </div>
-        <div className=" w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
+        <div className=" w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] m-auto flex justify-center items-center">
           <button type="submit" className=" flex gap-[16px]">
          <img className=" self-center" src="/google.svg"/>
-         <span className=" font-sans text-[24px] font-semibold text-[#FFF] "> Signin with google</span>
+         <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap "> Signin with google</span>
           </button>
         </div>
       </div>

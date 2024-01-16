@@ -9,7 +9,7 @@ import handler from "@/app/api/getAccessToken";
 
 
 const Signup = () => {
- const session = useSession();
+  const session = useSession();
   const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
 
@@ -148,13 +148,18 @@ const generatePasswordErrorMessage = (value) => {
    
     handleSubmit(new Event('submit'));
   };
-  console.log(session)
+ 
+   console.log(session)
+      
+        
+      
+ 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-[3.9vh] text-[#F5FEF9]">
-        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] relative">
+      <div className="mt-[3.9vh] text-[#F5FEF9] flex flex-col mob:gap-[8px]">
+        <div className="label w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] relative mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[4.5vw]">
           <input
-            className="bg-transparent  h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
+            className="bg-transparent  h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
             required
             type="text"
             name="fullname"
@@ -163,7 +168,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Full Name"
             maxLength={25}
           />
-          {inputs.fullname?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Full name</div>:null}
+          {inputs.fullname?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">Full name</div>:null}
           
           <hr className="border-b-2 border-[#9A9DA1] "style={
               error.fullname
@@ -171,14 +176,14 @@ const generatePasswordErrorMessage = (value) => {
                 : { borderColor: "#9A9DA1" }
             } />
           {error.fullname ? (
-            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[12px]">
               {error.fullname}
             </p>
           ) : null}
         </div>
-        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mob:h-[8vh]  mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[18px]">
           <input
-            className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none"
+            className="bg-transparent h-full w-full font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
             required
             type="email"
             name="email"
@@ -187,7 +192,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Email"
             maxLength={40}
           />
-          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Email</div>:null}
+          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">Email</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -197,14 +202,14 @@ const generatePasswordErrorMessage = (value) => {
             }
           />
           {error.email ? (
-            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[12px]">
               {error.email}
             </p>
           ) : null}
         </div>
-        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh]">
+        <div className="label relative w-[100%] h-[11.9vh] pt-[3.8vh] pb-[3.5vh] mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[18px]">
           <input
-            className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
+            className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
             required
             type="password"
             name="password"
@@ -213,7 +218,7 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Password"
             maxLength={25}
           />
-          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Password</div>:null}
+          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px]">Password</div>:null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -223,7 +228,7 @@ const generatePasswordErrorMessage = (value) => {
             }
           ></hr>
           {error.password ? (
-            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+            <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[12px]">
               {error.password}
             </p>
           ) : null}
@@ -232,13 +237,13 @@ const generatePasswordErrorMessage = (value) => {
       <div className=" mt-[6.3vh] flex flex-col gap-[3.8vh]">
         <div onClick={handleParentDivClick} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
         {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
-            NEXT
+            Next
           </button>:<Loader/>}
         </div>
-        <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] pl-[117px] pr-[117px] flex justify-center items-center">
+        <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] m-auto flex justify-center items-center">
           <button type="button" className=" flex gap-[16px]">
          <img className=" self-center" src="/google.svg"/>
-         <span className=" font-sans text-[24px] font-semibold text-[#FFF] " onClick={()=>signIn("google")}> Signup with google</span>
+         <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap " onClick={()=>signIn("google")}> Signup with google</span>
           </button>
         </div>
       </div>

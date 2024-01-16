@@ -8,20 +8,21 @@ export default function Layout({ children }) {
   const router =  useRouter()
   const pathname = usePathname()
   return (
-    <div className="loginMain bg-[#16202A] h-[100vh] bg-contain bg-no-repeat relative" style={pathname=="/signup/verify/details"?{height:"105vh"}:null}>
-      <div className="navBar relative">
+    <div className="loginMain bg-[#16202A] h-[100vh] bg-contain md:bg-cover bg-no-repeat relative" style={pathname=="/signup/verify/details"?{height:"105vh"}:null}>
+      <div className="navBar relative ">
         <Logo />
-        {!pathname.startsWith("/signup") ?
-        <div className="account absolute top-[6.3vh] right-[11.11vw]">
-        
-          Need an account? <span className="btn text-[#35CCCD]" onClick={()=>router.push("/signup")}> Sign up</span>
-        </div>:<div className="account absolute top-[6.3vh] right-[11.11vw]">
-        
-        Already have an account? <span className="btn text-[#35CCCD]" onClick={()=>router.push("/login")}>Signin</span>
-      </div>}
+        {pathname === "/login" ? (
+  <div className="account absolute top-[6.3vh] right-[11.11vw] sm:right-[24px] mob:top-[94vh]">
+    Need an account? <span className="btn text-[#35CCCD]" onClick={() => router.push("/signup")}> Sign up</span>
+  </div>
+) : pathname === "/signup" ? (
+  <div className="account whitespace-nowrap absolute top-[6.3vh] right-[11.11vw] sm:right-[24px] mob:top-[94vh]">
+    Already have an account? <span className="btn text-[#35CCCD]" onClick={() => router.push("/login")}>Sign in</span>
+  </div>
+) : null}
       </div>
       {children}
-      <div className="rightImg "></div>
+      <div className="rightImg w-[584px] lg:hidden xl:w-[475px] "></div>
     </div>
   );
 }

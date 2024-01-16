@@ -15,8 +15,8 @@ export default function Layout({ children }) {
   }, [router.pathname]);
 
   return (
-    <div className="w-[37.7%] flex flex-col absolute left-[145px] top-[18vh]">
-      <div className="tex text-white  text-[40px] font-semibold not-italic">Sign up</div>
+    <div className="w-[544px] flex flex-col absolute left-[145px] top-[18vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[19.3vh] ">
+      <div className="tex text-white   text-[40px] font-semibold not-italic">Sign up</div>
       <div className="progress-bar mt-[26px]">
         <div className="progress-step start"></div>
         <div className="progress-step middle" style={
