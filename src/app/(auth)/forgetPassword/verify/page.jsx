@@ -103,25 +103,24 @@ const Page = () => {
     <form
     
       onSubmit={verifyHandler}
-      className="w-[37.7%] flex flex-col absolute left-[145px] top-[22.4vh]"
+      className="w-[544px] flex flex-col absolute left-[145px] top-[22.2vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[19.3vh]"
     >
-      <div className="text-white font-sans text-[40px] font-semibold">
-        Forgot Password
+      <div className="tex text-white font-sans text-[40px] font-semibold mob:leading-[48px]">
+        Forgot <span className="mob:block">Password?</span>
       </div>
       <div className=" text-white font-sans text-[24px] font-semibold  flex flex-col gap-[40px] mt-[21px]">
         <div>
           Verify yourself
           <div
-            className=" text-white font-sans text-[18px] font-medium line-height: 140%; /* 25.2px */
-letter-spacing: 0.72px;"
+            className="tex text-white font-sans text-[18px] font-medium "
           >
             Beep-boop! Code dispatched.
           </div>
         </div>
-        <div className="flex relative gap-[67px]">
+        <div className="flex relative gap-[67px] mob:gap-[4.44vw] mob:justify-between">
           {code.map((digit, index) => (
             <input
-              className="otpBox flex justify-center items-center pl-[22px] text-[32px]"
+              className="otpBox flex justify-center items-center pl-[22px] text-[32px] mob:h-[66px] mob:w-[66px] mob:border-none mob:bg-[#1F2F3E] "
               ref={inputRefs[index]}
               required
               key={index}
@@ -135,7 +134,7 @@ letter-spacing: 0.72px;"
           ))}
 
           {error ? (
-            <p className="error text-[#F41F41] absolute bottom-[-30px]  font-sans text-[16px] font-medium leading-relaxed tracking-wide">
+            <p className="error text-[#F41F41] absolute bottom-[-30px]  font-sans text-[16px] font-medium leading-relaxed tracking-wide mob:text-[13px]">
               {error}
             </p>
           ) : null}
@@ -150,10 +149,10 @@ letter-spacing: 0.72px;"
           </div>
         )}
       </div>
-      <div onClick={clickHandler}  className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
+      <div onClick={clickHandler}  className="tex w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh] mob:mt-[20.5vh]">
         {!isLoad ? (
           <button ref={formRef}  type="submit" className="font-sans text-[24px] font-semibold">
-            NEXT
+           Finish
           </button>
         ) : (
           <Loader />

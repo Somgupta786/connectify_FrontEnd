@@ -107,13 +107,13 @@ const Page = () => {
     }
   };
   return (
-    <form onSubmit={verifyHandler} className="w-[37.7%] flex flex-col absolute left-[145px] top-[22.4vh]">
-      <div className="text-white font-sans text-[40px] font-semibold mb-[3.8vh]">
-        Reset Password
+    <form onSubmit={verifyHandler} className="w-[544px] flex flex-col absolute left-[145px] top-[26vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[28.7vh]">
+      <div className="tex text-white font-sans text-[40px] font-semibold mb-[3.8vh] mob:leading-[48px]">
+        Reset <span className="mob:block">Password</span>
       </div>
-      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px]">
+      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px] mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[18px]">
         <input
-          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
+          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
           required
           type="password"
           name="password"
@@ -122,7 +122,7 @@ const Page = () => {
           placeholder="New Password"
           maxLength={25}
         />
-          {inputs.password?<div className="tex absolute top-[3px] text-[18px] font-[500] ">Password</div>:null}
+          {inputs.password?<div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">Password</div>:null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
@@ -132,14 +132,14 @@ const Page = () => {
           }
         ></hr>
         {error.password ? (
-          <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+          <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[13px]">
             {error.password}
           </p>
         ) : null}
       </div>
-      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px]">
+      <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px] mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[18px] mob:mt-[8px]">
         <input
-          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
+          className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
           required
           type="password"
           name="confirm"
@@ -148,7 +148,7 @@ const Page = () => {
           placeholder="Confirm New Password"
           maxLength={25}
         />
-        {inputs.confirm?<div className="tex absolute top-[3px] text-[18px] font-[500] ">Confirm New Password</div>:null}
+        {inputs.confirm?<div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">Confirm New Password</div>:null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
@@ -158,16 +158,16 @@ const Page = () => {
           }
         ></hr>
         {error.confirm ? (
-          <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide">
+          <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[13px]">
             {error.confirm}
           </p>
         ) : null}
       </div>
 
-      <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
+      <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh] mob:mt-[23.8vh]">
         {!isLoad ? (
-          <button type="submit" className="font-sans text-[24px] font-semibold">
-            NEXT
+          <button type="submit" className="tex font-sans text-[24px] font-semibold">
+          Back to login
           </button>
         ) : (
           <Loader />

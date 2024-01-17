@@ -78,11 +78,11 @@ const Page = () => {
     formRef.current.click();
    }
   return (
-    <form onSubmit={submitHandler} className="flex flex-col gap-[6.6vh] mt-[6.19vh]">
+    <form onSubmit={submitHandler} className="flex flex-col gap-[6.6vh] mt-[6.19vh] mob:mt-[5vh]">
       <div className=" flex flex-col gap-[5.11vh]">
         <div className="text-[#F5FEF9] font-sans text-2xl font-semibold">
           <div>Pick a Pic!</div>
-          <div className="w-[46.4583vw] h-[138px] flex gap-[16px] items-center overflow-scroll ">
+          <div className="w-[46.4583vw] h-[138px] flex gap-[16px] items-center overflow-scroll mob:w-[100%] mob:mt-[16px] md:w-[100%] ">
             {avatars.map((avatar, index) => (
               <img
                 key={index}
@@ -111,9 +111,9 @@ const Page = () => {
           <div className="text-[#F5FEF9] font-sans text-2xl font-semibold">
             Pick a username
           </div>
-          <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px] text-[#F5FEF9] font-sans text-2xl font-semibold">
+          <div className="label relative w-[100%] h-[100px] pt-[34px] pb-[29px] text-[#F5FEF9] font-sans text-2xl font-semibold mob:h-[8vh] mob:pb-[2vh] mob:pt-[2.6vh] mob:text-[18px]">
             <input
-              className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none"
+              className="bg-transparent h-full w-full text-[#F5FEF9] font-sans text-2xl font-semibold border-none focus:outline-none mob:text-[18px]"
               required
               type="text"
               value={inputs.username}
@@ -121,14 +121,14 @@ const Page = () => {
               onChange={handleInputChange}
               placeholder="Username"
             />
-              {inputs.username?<div className="tex absolute top-[0px] text-[18px] font-[500] ">Username</div>:null}
+              {inputs.username?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[13px] ">Username</div>:null}
             <hr className="border-b-2 border-[#9A9DA1] mt-1"></hr>
           </div>
         </div>
       </div>
       <div  onClick={clickHandler} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
-      {!isLoad?<button ref={formRef} type="submit" className="font-sans text-[24px] font-semibold">
-            NEXT
+      {!isLoad?<button ref={formRef} type="submit" className="tex font-sans text-[24px] font-semibold">
+            Next
           </button>:<Loader/>}
       </div>
     </form>

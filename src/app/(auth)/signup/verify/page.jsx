@@ -96,14 +96,14 @@ const verifyHandler = async(e)=>{
       <div className=" text-white font-sans text-[24px] font-semibold mt-[5.7vh] flex flex-col gap-[4.7vh]">
         <div>
           Verify yourself
-          <div className="text-white font-sans text-[18px] font-medium line-height: 140%; /* 25.2px */ letter-spacing: 0.72px;">
+          <div className="tex text-white font-sans text-[18px] font-medium ">
             Beep-boop! Code dispatched.
           </div>
         </div>
-        <div className="flex relative gap-[67px]">
+        <div className="flex relative gap-[67px] mob:gap-[4.44vw] mob:justify-between">
           {code.map((digit, index) => (
             <input
-              className="otpBox flex justify-center items-center pl-[22px] text-[32px]"
+              className="otpBox flex justify-center items-center pl-[22px] text-[32px] mob:h-[66px] mob:w-[66px] mob:border-none mob:bg-[#1F2F3E] "
               ref={inputRefs[index]}
               required
               key={index}
@@ -117,8 +117,8 @@ const verifyHandler = async(e)=>{
           ))}
       
           {error ? (
-            <p className="error text-[#F41F41] absolute bottom-[-30px]  font-sans text-[16px] font-medium leading-relaxed tracking-wide">
-              {error}
+            <p className="error text-[#F41F41] absolute bottom-[-30px]  font-sans text-[16px] font-medium leading-relaxed tracking-wide mob:text-[13px]">
+       {error}
             </p>
           ) :null}
         </div>
@@ -133,9 +133,9 @@ const verifyHandler = async(e)=>{
           </div>
         )}
       </div>
-      <div className="w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh]">
-      {!isLoad?<button type="submit" className="font-sans text-[24px] font-semibold">
-            NEXT
+      <div className="w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh] mob:mt-[20vh]">
+      {!isLoad?<button type="submit" className="tex font-sans text-[24px] font-semibold">
+           Finish
           </button>:<Loader/>}
       </div>
     </form>
