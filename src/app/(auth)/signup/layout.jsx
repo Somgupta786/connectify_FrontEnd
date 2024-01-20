@@ -4,13 +4,13 @@ import { useEffect } from 'react';
 
 export default function Layout({ children }) {
   const router = usePathname();
-  console.log(router)
+
   useEffect(() => {
-    console.log("k")
+   
   
     if (typeof window !== 'undefined') {
   
-      console.log('Current Path:', router.pathname);
+      
     }
   }, [router.pathname]);
 

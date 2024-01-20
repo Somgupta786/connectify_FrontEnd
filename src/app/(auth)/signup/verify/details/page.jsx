@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Loader from "@/components/loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast from 'react-hot-toast';
 
 const Page = () => {
   const formRef =  useRef()

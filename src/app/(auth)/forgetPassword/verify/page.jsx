@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
-
+import toast from "react-hot-toast";
 
 
 
@@ -68,6 +68,7 @@ const Page = () => {
       setLoad(false);
 
       if (response.data) {
+        toast.success("Otp Successfully Verified")
         router.push("/forgetPassword/reset");
       }
     } catch (error) {
@@ -152,7 +153,7 @@ const Page = () => {
       <div onClick={clickHandler}  className="tex w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh] mob:mt-[20.5vh]">
         {!isLoad ? (
           <button ref={formRef}  type="submit" className="font-sans text-[24px] font-semibold">
-           Finish
+         Next
           </button>
         ) : (
           <Loader />

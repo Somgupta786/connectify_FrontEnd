@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
+import toast from 'react-hot-toast';
 const Page = () => {
   const router = useRouter()
   const email = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('email')) : null;
@@ -81,7 +82,7 @@ const verifyHandler = async(e)=>{
     setLoad(false)
    
     if (response.data) {
-     
+      toast.success("Successfully registered");
       router.push("/login")
     }
   } catch(error){

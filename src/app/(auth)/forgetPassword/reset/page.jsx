@@ -4,6 +4,7 @@ import { useState } from "react";
 import Loader from "@/components/loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const Page = () => {
     const router = useRouter()
     const email =
@@ -98,6 +99,7 @@ const Page = () => {
       setLoad(false);
 
       if (response.data.success) {
+        toast.success("Password reset Successfully")
         router.push("/login");
       }
     } catch (error) {
@@ -164,7 +166,7 @@ const Page = () => {
         ) : null}
       </div>
 
-      <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center mt-[14vh] mob:mt-[23.8vh]">
+      <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl flex justify-center items-center mt-[14vh] mob:mt-[23.8vh]">
         {!isLoad ? (
           <button type="submit" className="tex font-sans text-[24px] font-semibold">
           Back to login

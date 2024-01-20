@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
+import toast from "react-hot-toast";
 const Page = () => {
   const formRef = useRef()
   const router = useRouter();
@@ -67,6 +68,7 @@ const validateInput = (name, value) => {
         setLoad(false);
        
         if (response.data.success) {
+          toast.success("Otp Sent")
           localStorage.setItem('email',JSON.stringify(inputs.email))
           router.push("/forgetPassword/verify")
         } else {
