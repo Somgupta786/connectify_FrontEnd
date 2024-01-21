@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 const Page = () => {
   const router = useRouter();
   const session = useSession();
+  const [isClicked, setIsClicked] = useState(false);
   const [error, setError] = useState({
     email: "",
     password: "",
@@ -19,6 +20,7 @@ const Page = () => {
     password: "",
   });
   const [isLoad, setLoad] = useState(false);
+  const [isGoogle, setGoogle] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex =
@@ -127,10 +129,18 @@ const Page = () => {
   useEffect(() => {
     const verify = async () => {
       const formData = new FormData();
-
-      if (!session.status == "authenticated") {
+      const isClick =
+        typeof window !== "undefined"
+          ? JSON.parse(localStorage.getItem("isClicked"))
+          : null;
+      console.log(isClick);
+      console.log(session.status);
+      console.log(isClick);
+      if (session.status == "authenticated" && isClick) {
         console.log("f");
-        setLoad(true);
+        localStorage.setItem("isClicked", JSON.stringify(false));
+
+       setGoogle(true)
         formData.append("token", session.data.accessToken);
         try {
           const response = await axios.post(
@@ -142,16 +152,28 @@ const Page = () => {
               },
             }
           );
+          setGoogle(false)
           if (response.data.success) {
-            setLoad(false)
+            router.push("/communities");
           }
         } catch (error) {
-          console.log(error);
+          setError({
+            ...error,
+            email: error.response?.data?.message || "An error occurred",
+          });
+          setGoogle(false);
         }
       }
     };
     verify();
   }, [session]);
+
+  const handleGoogleSignup = () => {
+    setIsClicked(true);
+    console.log(isClicked);
+    localStorage.setItem("isClicked", JSON.stringify(true));
+    signIn("google");
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -246,16 +268,20 @@ const Page = () => {
           )}
         </div>
         <div className=" w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] m-auto flex justify-center items-center">
-          <button type="submit" className=" flex gap-[16px]">
+        {!isGoogle ? (
+          <button
+            type="button"
+            className=" flex gap-[16px]"
+            onClick={handleGoogleSignup}
+          >
             <img className=" self-center" src="/google.svg" />
-            <span
-              className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap "
-              onClick={() => signIn("google")}
-            >
+            <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap ">
               {" "}
-              Signin with google
+              SignIn with google
             </span>
-          </button>
+          </button>) : (
+            <Loader />
+          )}
         </div>
       </div>
     </form>

@@ -1,19 +1,19 @@
 "use client";
-import React from "react";
-import { useState,useEffect } from "react";
-import { useRouter } from "next/navigation"; 
+import React, { use } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
 import { signIn, signOut, useSession } from "next-auth/react";
 import handler from "@/app/api/getAccessToken";
 
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 const Signup = () => {
- 
   const session = useSession();
- 
-  
+  console.log(session);
+  const [isClicked, setIsClicked] = useState(false);
+
   const router = useRouter();
 
   const [error, setError] = useState({
@@ -27,54 +27,62 @@ const Signup = () => {
     password: "",
   });
   const [isLoad, setLoad] = useState(false);
+  const [isGoogle, setGoogle] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-const nameRegex = /^[a-zA-Z\s]+$/
-;
-
-const validateInput = (name, value) => {
-  switch (name) {
-    case "fullname":
-      return value.trim() ?(nameRegex.test(value)?  "": "Only Alphabets! ") : "Full Name is required";
-    case "email":
-      return value.trim() ? (emailRegex.test(value) ? "" : "Invalid email address!") : "Email is required!";
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const nameRegex = /^[a-zA-Z\s]+$/;
+  const validateInput = (name, value) => {
+    switch (name) {
+      case "fullname":
+        return value.trim()
+          ? nameRegex.test(value)
+            ? ""
+            : "Only Alphabets! "
+          : "Full Name is required";
+      case "email":
+        return value.trim()
+          ? emailRegex.test(value)
+            ? ""
+            : "Invalid email address!"
+          : "Email is required!";
       case "password":
         return value.trim()
           ? passwordRegex.test(value)
             ? ""
             : generatePasswordErrorMessage(value)
           : "Password is required!";
-    default:
-      return "";
-  }
-};
+      default:
+        return "";
+    }
+  };
 
-const generatePasswordErrorMessage = (value) => {
-  const errors = [];
-  
-  if (!/(?=.*[a-z])/.test(value)) {
-    errors.push(" one lowercase letter");
-  }
-  
-  if (!/(?=.*[A-Z])/.test(value)) {
-    errors.push(" one uppercase letter");
-  }
-  
-  if (!/(?=.*\d)/.test(value)) {
-    errors.push(" one digit");
-  }
-  
-  if (!/(?=.*[@$!%*?&])/.test(value)) {
-    errors.push(" one special character");
-  }
-  
-  if (value.length < 8) {
-    errors.push(" 8 characters long");
-  }
+  const generatePasswordErrorMessage = (value) => {
+    const errors = [];
 
-  return `at least ${errors.join(", ")}.`;
-};
+    if (!/(?=.*[a-z])/.test(value)) {
+      errors.push(" one lowercase letter");
+    }
+
+    if (!/(?=.*[A-Z])/.test(value)) {
+      errors.push(" one uppercase letter");
+    }
+
+    if (!/(?=.*\d)/.test(value)) {
+      errors.push(" one digit");
+    }
+
+    if (!/(?=.*[@$!%*?&])/.test(value)) {
+      errors.push(" one special character");
+    }
+
+    if (value.length < 8) {
+      errors.push(" 8 characters long");
+    }
+
+    return `at least ${errors.join(", ")}.`;
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
@@ -85,11 +93,8 @@ const generatePasswordErrorMessage = (value) => {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
-   
 
-   
     const errors = {};
     Object.keys(inputs).forEach((name) => {
       const errorMessage = validateInput(name, inputs[name]);
@@ -110,20 +115,17 @@ const generatePasswordErrorMessage = (value) => {
           }
         );
 
-       
         setLoad(false);
-       
+
         if (response.data.success) {
           toast.success("OTP sent successfully");
-          localStorage.setItem('email',JSON.stringify(inputs.email))
-          router.push( '/signup/verify/details');
+          localStorage.setItem("email", JSON.stringify(inputs.email));
+          router.push("/signup/verify/details");
         } else {
-          
           setLoad(false);
-          setError(response.data)
+          setError(response.data);
         }
       } catch (error) {
-        
         setError({
           ...error,
           email: error.response?.data?.message || "An error occurred",
@@ -134,50 +136,56 @@ const generatePasswordErrorMessage = (value) => {
       setError(errors);
     }
   };
-  
+
   const handleParentDivClick = () => {
-   
-    handleSubmit(new Event('submit'));
+    handleSubmit(new Event("submit"));
   };
- 
-  const verify = async () => {
-    const formData = new FormData();
+  useEffect(() => {
+    const verify = async () => {
+      const formData = new FormData();
+      const isClick =
+        typeof window !== "undefined"
+          ? JSON.parse(localStorage.getItem("isClicked"))
+          : null;
+      console.log(isClick);
+      console.log(session.status);
+      console.log(isClick);
+      if (session.status == "authenticated" && isClick) {
+        console.log("f");
+        localStorage.setItem("isClicked", JSON.stringify(false));
 
-    if (session.status === "authenticated") {
-      console.log('f')
-      setLoad(true);
-      formData.append('token', session.data.accessToken);
-      try {
-        const response = await axios.post("https://connectify-app.onrender.com/api/v1/auth/oauthGoogle", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        if (response.data) {
-          router.push("/login");
+       setGoogle(true)
+        formData.append("token", session.data.accessToken);
+        try {
+          const response = await axios.post(
+            "https://connectify-app.onrender.com/api/v1/auth/oauthGoogle",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          setGoogle(false)
+          if (response.data) {
+            router.push("/login");
+          }
+        } catch (error) {
+          console.log(error);
+          setGoogle(false);
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoad(false);
       }
-    }
-  };
-  const handleGoogleSignup = async () => {
-    // Perform Google signup
-    const googleSignInResponse = await signIn("google");
+    };
+    verify();
+  }, [session]);
 
-    // Check if Google signup was successful
-    if (googleSignInResponse?.error) {
-      console.log("Google signup failed:", googleSignInResponse.error);
-    } else {
-      // If Google signup was successful, call the verify function
-      await verify();
-    }
+  const handleGoogleSignup = () => {
+    setIsClicked(true);
+    console.log(isClicked);
+    localStorage.setItem("isClicked", JSON.stringify(true));
+    signIn("google");
   };
-        
-      
- 
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="mt-[3.9vh] text-[#F5FEF9] flex flex-col mob:gap-[8px]">
@@ -192,13 +200,20 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Full Name"
             maxLength={25}
           />
-          {inputs.fullname?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">Full name</div>:null}
-          
-          <hr className="border-b-2 border-[#9A9DA1] "style={
+          {inputs.fullname ? (
+            <div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">
+              Full name
+            </div>
+          ) : null}
+
+          <hr
+            className="border-b-2 border-[#9A9DA1] "
+            style={
               error.fullname
                 ? { borderColor: "#F41F41" }
                 : { borderColor: "#9A9DA1" }
-            } />
+            }
+          />
           {error.fullname ? (
             <p className=" text-[#F41F41] font-sans text-[18px] font-medium leading-relaxed tracking-wide mob:text-[12px]">
               {error.fullname}
@@ -216,7 +231,11 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Email"
             maxLength={40}
           />
-          {inputs.email?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">Email</div>:null}
+          {inputs.email ? (
+            <div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px] ">
+              Email
+            </div>
+          ) : null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -242,7 +261,11 @@ const generatePasswordErrorMessage = (value) => {
             placeholder="Password"
             maxLength={25}
           />
-          {inputs.password?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px]">Password</div>:null}
+          {inputs.password ? (
+            <div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[12px]">
+              Password
+            </div>
+          ) : null}
           <hr
             className="border-b-2 border-[#9A9DA1] "
             style={
@@ -259,16 +282,36 @@ const generatePasswordErrorMessage = (value) => {
         </div>
       </div>
       <div className=" mt-[6.3vh] flex flex-col gap-[3.8vh]">
-        <div onClick={handleParentDivClick} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center" >
-        {!isLoad?<button type="submit"   className=" font-FontPro  text-[24px] font-semibold">
-            Next
-          </button>:<Loader/>}
+        <div
+          onClick={handleParentDivClick}
+          className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center"
+        >
+          {!isLoad ? (
+            <button
+              type="submit"
+              className=" font-FontPro  text-[24px] font-semibold"
+            >
+              Next
+            </button>
+          ) : (
+            <Loader />
+          )}
         </div>
         <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] m-auto flex justify-center items-center">
-          <button type="button" className=" flex gap-[16px]" onClick={handleGoogleSignup}>
-         <img className=" self-center" src="/google.svg"/>
-         <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap " onClick={()=>signIn("google")}> Signup with google</span>
-          </button>
+        {!isGoogle ? (
+          <button
+            type="button"
+            className=" flex gap-[16px]"
+            onClick={handleGoogleSignup}
+          >
+            <img className=" self-center" src="/google.svg" />
+            <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap ">
+              {" "}
+              Signup with google
+            </span>
+          </button>) : (
+            <Loader />
+          )}
         </div>
       </div>
     </form>
