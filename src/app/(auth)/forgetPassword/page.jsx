@@ -2,7 +2,7 @@
 
 "use client";
 import React, { useRef } from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation"; 
 import axios from "axios";
 import Loader from "@/components/loader";
@@ -27,7 +27,9 @@ const validateInput = (name, value) => {
       return "";
   }
 };
-
+useEffect(() => {
+  localStorage.setItem("isValid", JSON.stringify(false));
+}, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,6 +72,7 @@ const validateInput = (name, value) => {
         if (response.data.success) {
           toast.success("Otp Sent")
           localStorage.setItem('email',JSON.stringify(inputs.email))
+          localStorage.setItem("isValid", JSON.stringify(true));
           router.push("/forgetPassword/verify")
         } else {
           

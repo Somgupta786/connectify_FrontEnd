@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect,useLayoutEffect } from "react";
 import { useState } from "react";
 import Loader from "@/components/loader";
 import axios from "axios";
@@ -21,7 +21,26 @@ const Page = () => {
     confirm:""
   });
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  window.addEventListener("popstate", (event) => {
+    localStorage.setItem("isOtp", JSON.stringify(false));
+    localStorage.setItem("isValid", JSON.stringify(false));
+    router.push("/login");
+  });
+  useLayoutEffect(() => {
+    const isValid =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("isValid"))
+        : null;
+    const isOtp =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("isOtp"))
+        : null;
 
+    if (isValid && isOtp) {
+    } else {
+      router.push("/login");
+    }
+  }, []);
   const validateInput = (name, value) => {
     switch (name) {
       case "password":

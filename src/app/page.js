@@ -1,12 +1,13 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Redirect } from 'react-router-dom';
 
 
 const Home = () => {
   const router = useRouter();
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     
     router.push('/signup');
   }, []);

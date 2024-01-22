@@ -1,21 +1,35 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Loader from "@/components/loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 const Page = () => {
-  const formRef =  useRef()
-  const router = useRouter()
-  const email = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('email')) : null;
+  const formRef = useRef();
+  const router = useRouter();
+  const email =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("email"))
+      : null;
+
   const [avatars, setAvatars] = useState([]);
   const [currentIndex, setCurrentIndex] = useState("0");
   const [inputs, setInputs] = useState({
-   username:""
+    username: "",
   });
   const [isLoad, setLoad] = useState(false);
- const  [selectedAvatar,setSelectedAvatar]  = useState('')
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+  useLayoutEffect(() => {
+    const isSigned =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("isSigned"))
+        : null;
+    if (!isSigned) {
+      router.push("/signup");
+    }
+  }, []);
+
   useEffect(() => {
     const avatarHandler = async () => {
       try {
@@ -32,54 +46,56 @@ const Page = () => {
     avatarHandler();
   }, []);
 
-  const selectHandler = (avatar,index) => {
+  const selectHandler = (avatar, index) => {
     setCurrentIndex(index);
-    setSelectedAvatar(avatar)
-   
-    
+    setSelectedAvatar(avatar);
   };
   const submitHandler = async (e) => {
-    setLoad(true)
+    setLoad(true);
     e.preventDefault();
-  
+
     const formData = new FormData();
-    formData.append('email', email);
-    formData.append('userId', inputs.username);
-    formData.append('file', selectedAvatar);
-  
+    formData.append("email", email);
+    formData.append("userId", inputs.username);
+    formData.append("file", selectedAvatar);
+
     try {
-      const response = await axios.post('https://connectify-app.onrender.com/api/v1/auth/selectAvatar', {
-        email:email,
-        userId:inputs.username,
-        profileImageUrl:selectedAvatar,
-      });
-  
+      const response = await axios.post(
+        "https://connectify-app.onrender.com/api/v1/auth/selectAvatar",
+        {
+          email: email,
+          userId: inputs.username,
+          profileImageUrl: selectedAvatar,
+        }
+      );
+
       setLoad(false);
-  
+
       if (response.data.success) {
-        router.push("/signup/verify");
+        localStorage.setItem("isVerified", JSON.stringify(true));
+        router.push("/signup/details/verify");
       } else {
-        console.error(response.data); 
+        console.error(response.data);
       }
     } catch (error) {
       setLoad(false);
       console.error(error);
     }
   };
-  
-  
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
-  
-  const clickHandler = ()=>{
 
+  const clickHandler = () => {
     formRef.current.click();
-   }
+  };
   return (
-    <form onSubmit={submitHandler} className="flex flex-col gap-[6.6vh] mt-[6.19vh] mob:mt-[5vh]">
+    <form
+      onSubmit={submitHandler}
+      className="flex flex-col gap-[6.6vh] mt-[6.19vh] mob:mt-[5vh]"
+    >
       <div className=" flex flex-col gap-[5.11vh]">
         <div className="text-[#F5FEF9] font-sans text-2xl font-semibold">
           <div>Pick a Pic!</div>
@@ -90,8 +106,7 @@ const Page = () => {
                 src={avatar}
                 className="btn h-[64px] w-[64px] bg-transparent rounded-full 
 "
-                onClick={() => selectHandler(avatar,index)}
-              
+                onClick={() => selectHandler(avatar, index)}
                 style={
                   currentIndex == index
                     ? {
@@ -99,13 +114,11 @@ const Page = () => {
                         width: "109px",
                         borderColor: "#35CCCD",
                         borderWidth: "4px",
-                      
                       }
                     : null
                 }
               />
             ))}
-            
           </div>
         </div>
         <div>
@@ -122,15 +135,30 @@ const Page = () => {
               onChange={handleInputChange}
               placeholder="Username"
             />
-              {inputs.username?<div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[13px] ">Username</div>:null}
+            {inputs.username ? (
+              <div className="tex absolute top-[0px] text-[18px] font-[500] mob:text-[13px] ">
+                Username
+              </div>
+            ) : null}
             <hr className="border-b-2 border-[#9A9DA1] mt-1"></hr>
           </div>
         </div>
       </div>
-      <div  onClick={clickHandler} className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center">
-      {!isLoad?<button ref={formRef} type="submit" className="tex font-sans text-[24px] font-semibold">
+      <div
+        onClick={clickHandler}
+        className="btn w-full h-[6.9vh] bg-[#35CCCD] rounded-xl pl-[117px] pr-[117px] flex justify-center items-center"
+      >
+        {!isLoad ? (
+          <button
+            ref={formRef}
+            type="submit"
+            className="tex font-sans text-[24px] font-semibold"
+          >
             Next
-          </button>:<Loader/>}
+          </button>
+        ) : (
+          <Loader />
+        )}
       </div>
     </form>
   );

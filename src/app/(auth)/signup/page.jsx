@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React, { use, useLayoutEffect } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -58,6 +58,9 @@ const Signup = () => {
     }
   };
 
+  useEffect(() => {
+    localStorage.setItem("isSigned", JSON.stringify(false));
+  }, []);
   const generatePasswordErrorMessage = (value) => {
     const errors = [];
 
@@ -118,9 +121,17 @@ const Signup = () => {
         setLoad(false);
 
         if (response.data.success) {
-          toast.success("OTP sent successfully");
+          toast.success("Details Updated");
           localStorage.setItem("email", JSON.stringify(inputs.email));
-          router.push("/signup/verify/details");
+          localStorage.setItem("isSigned", JSON.stringify(true));
+
+          const isSigned =
+            typeof window !== "undefined"
+              ? JSON.parse(localStorage.getItem("isSigned"))
+              : null;
+          if (isSigned) {
+            router.push("/signup/details");
+          }
         } else {
           setLoad(false);
           setError(response.data);
@@ -154,7 +165,7 @@ const Signup = () => {
         console.log("f");
         localStorage.setItem("isClicked", JSON.stringify(false));
 
-       setGoogle(true)
+        setGoogle(true);
         formData.append("token", session.data.accessToken);
         try {
           const response = await axios.post(
@@ -166,9 +177,9 @@ const Signup = () => {
               },
             }
           );
-          setGoogle(false)
+          setGoogle(false);
           if (response.data) {
-            router.push("/login");
+            router.push("/communities");
           }
         } catch (error) {
           console.log(error);
@@ -298,18 +309,19 @@ const Signup = () => {
           )}
         </div>
         <div className="btn w-full h-[6.9vh] bg-transparent rounded-xl border-[3px] border-solid border-[#F5FEF9] m-auto flex justify-center items-center">
-        {!isGoogle ? (
-          <button
-            type="button"
-            className=" flex gap-[16px]"
-            onClick={handleGoogleSignup}
-          >
-            <img className=" self-center" src="/google.svg" />
-            <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap ">
-              {" "}
-              Signup with google
-            </span>
-          </button>) : (
+          {!isGoogle ? (
+            <button
+              type="button"
+              className=" flex gap-[16px]"
+              onClick={handleGoogleSignup}
+            >
+              <img className=" self-center" src="/google.svg" />
+              <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap ">
+                {" "}
+                Signup with google
+              </span>
+            </button>
+          ) : (
             <Loader />
           )}
         </div>

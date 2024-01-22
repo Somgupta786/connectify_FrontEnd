@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Loader from "@/components/loader";
@@ -19,7 +19,15 @@ const Page = () => {
   const [error, setError] = useState("");
   const [code, setOTP] = useState(["", "", "", ""]);
   const [countdown, setCountdown] = useState(60);
-
+  useLayoutEffect(() => {
+    const isValid =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("isValid"))
+        : null;
+    if (!isValid) {
+      router.push("/login");
+    }
+  }, []);
   useEffect(() => {
     const timer = setInterval(() => {
       if (countdown > 0) {
@@ -69,6 +77,7 @@ const Page = () => {
 
       if (response.data) {
         toast.success("Otp Successfully Verified")
+        localStorage.setItem("isOtp", JSON.stringify(true));
         router.push("/forgetPassword/reset");
       }
     } catch (error) {
@@ -86,7 +95,7 @@ const Page = () => {
        
  })
  if(response.data.success){
- 
+  toast.success("OTP Resent !")
  }
     }
     catch(error){
