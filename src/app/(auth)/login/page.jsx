@@ -261,7 +261,7 @@ const Page = () => {
               type="submit"
               className="font-sans text-[24px] font-semibold"
             >
-              NEXT
+              Next
             </button>
           ) : (
             <Loader />
@@ -277,7 +277,7 @@ const Page = () => {
             <img className=" self-center" src="/google.svg" />
             <span className=" font-sans text-[24px] font-semibold text-[#FFF] whitespace-nowrap ">
               {" "}
-              SignIn with google
+              Signup with google
             </span>
           </button>) : (
             <Loader />

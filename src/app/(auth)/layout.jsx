@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   const router =  useRouter()
   const pathname = usePathname()
   return (
-    <div className="loginMain bg-[#16202A] h-[100vh] bg-contain md:bg-cover bg-no-repeat relative" style={pathname=="/signup/details"?{height:"105vh"}:null}>
+    <div className="loginMain bg-[#16202A] h-[100vh] bg-contain md:bg-cover bg-no-repeat relative" style={pathname=="/signup/details"?{height:"110vh"}:null}>
       <div className="navBar relative ">
         <Logo />
         {pathname === "/login" ? (

@@ -1,31 +1,35 @@
 "use client";
-import React, { useEffect,useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import Loader from "@/components/loader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 const Page = () => {
-    const router = useRouter()
-    const email =
+  const router = useRouter();
+  const email =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("email"))
       : null;
   const [isLoad, setLoad] = useState(false);
   const [error, setError] = useState({
     password: "",
-    confirm:""
+    confirm: "",
   });
   const [inputs, setInputs] = useState({
     password: "",
-    confirm:""
+    confirm: "",
   });
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  window.addEventListener("popstate", (event) => {
-    localStorage.setItem("isOtp", JSON.stringify(false));
-    localStorage.setItem("isValid", JSON.stringify(false));
-    router.push("/login");
-  });
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    typeof window !== "undefined"
+    ?  window.addEventListener("popstate", (event) => {
+      localStorage.setItem("isOtp", JSON.stringify(false));
+      localStorage.setItem("isValid", JSON.stringify(false));
+      router.push("/login");
+    })
+    : null;
+ 
   useLayoutEffect(() => {
     const isValid =
       typeof window !== "undefined"
@@ -59,41 +63,43 @@ const Page = () => {
         return "";
     }
   };
-  
+
   useEffect(() => {
     const value = inputs.confirm;
     value.trim()
       ? value === inputs.password
         ? setError((prevError) => ({ ...prevError, confirm: "" }))
-        : setError((prevError) => ({ ...prevError, confirm: "Passwords do not match" }))
+        : setError((prevError) => ({
+            ...prevError,
+            confirm: "Passwords do not match",
+          }))
       : setError((prevError) => ({ ...prevError, confirm: "" }));
   }, [inputs.password, inputs.confirm]);
   const generatePasswordErrorMessage = (value) => {
     const errors = [];
-    
+
     if (!/(?=.*[a-z])/.test(value)) {
       errors.push(" one lowercase letter");
     }
-    
+
     if (!/(?=.*[A-Z])/.test(value)) {
       errors.push(" one uppercase letter");
     }
-    
+
     if (!/(?=.*\d)/.test(value)) {
       errors.push(" one digit");
     }
-    
+
     if (!/(?=.*[@$!%*?&])/.test(value)) {
       errors.push(" one special character");
     }
-    
+
     if (value.length < 8) {
       errors.push(" 8 characters long");
     }
-  
+
     return `at least ${errors.join(", ")}.`;
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +112,7 @@ const Page = () => {
   const verifyHandler = async (e) => {
     setLoad(true);
     e.preventDefault();
-   
+
     try {
       const response = await axios.post(
         "https://connectify-app.onrender.com/api/v1/auth/reset-password",
@@ -118,17 +124,20 @@ const Page = () => {
       setLoad(false);
 
       if (response.data.success) {
-        toast.success("Password reset Successfully")
+        toast.success("Password reset Successfully");
         router.push("/login");
       }
     } catch (error) {
       setLoad(false);
-     
+
       console.log(error);
     }
   };
   return (
-    <form onSubmit={verifyHandler} className="w-[544px] flex flex-col absolute left-[145px] top-[26vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[28.7vh]">
+    <form
+      onSubmit={verifyHandler}
+      className="w-[544px] flex flex-col absolute left-[145px] top-[26vh] lg:left-1/2 lg:transform lg:-translate-x-1/2 sm:w-[86.7vw] mob:top-[28.7vh]"
+    >
       <div className="tex text-white font-sans text-[40px] font-semibold mb-[3.8vh] mob:leading-[48px]">
         Reset <span className="mob:block">Password</span>
       </div>
@@ -143,7 +152,11 @@ const Page = () => {
           placeholder="New Password"
           maxLength={25}
         />
-          {inputs.password?<div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">Password</div>:null}
+        {inputs.password ? (
+          <div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">
+            Password
+          </div>
+        ) : null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
@@ -169,7 +182,11 @@ const Page = () => {
           placeholder="Confirm New Password"
           maxLength={25}
         />
-        {inputs.confirm?<div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">Confirm New Password</div>:null}
+        {inputs.confirm ? (
+          <div className="tex absolute top-[3px] text-[18px] font-[500] mob:text-[13px] text-[#FFF] ">
+            Confirm New Password
+          </div>
+        ) : null}
         <hr
           className="border-b-2 border-[#9A9DA1] "
           style={
@@ -187,8 +204,11 @@ const Page = () => {
 
       <div className=" w-full h-[6.9vh] bg-[#35CCCD] rounded-xl flex justify-center items-center mt-[14vh] mob:mt-[23.8vh]">
         {!isLoad ? (
-          <button type="submit" className="tex font-sans text-[24px] font-semibold">
-          Back to login
+          <button
+            type="submit"
+            className="tex font-sans text-[24px] font-semibold"
+          >
+            Back to login
           </button>
         ) : (
           <Loader />

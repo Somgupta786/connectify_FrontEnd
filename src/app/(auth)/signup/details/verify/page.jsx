@@ -17,11 +17,14 @@ const Page = () => {
   const [error, setError] = useState("");
   const [code, setOTP] = useState(["", "", "", ""]);
   const [countdown, setCountdown] = useState(60);
-  window.addEventListener("popstate", (event) => {
+  typeof window !== "undefined"
+  ?window.addEventListener("popstate", (event) => {
     localStorage.setItem("isSigned", JSON.stringify(false));
     localStorage.setItem("isVerified", JSON.stringify(false));
     router.push("/signup");
-  });
+  })
+  : null;
+  
   useLayoutEffect(() => {
     const isSigned =
       typeof window !== "undefined"
