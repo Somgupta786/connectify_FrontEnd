@@ -1,19 +1,7 @@
-"use client"
-import React, { useLayoutEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Redirect } from 'react-router-dom';
+import { redirect } from 'next/navigation'
+function page() {
 
+  return redirect('/signup');
+}
 
-const Home = () => {
-  const router = useRouter();
-  
-  useLayoutEffect(() => {
-    
-    router.push('/signup');
-  }, []);
-  
-
-  return <div>Redirecting...</div>;
-};
-
-export default Home;
+export default page

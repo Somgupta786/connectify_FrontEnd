@@ -5,8 +5,12 @@ import axios from "axios";
 import Loader from "@/components/loader";
 import toast from "react-hot-toast";
 import { useLayoutEffect } from "react";
+import { UseSelector,useDispatch, useSelector } from "react-redux";
+
+import { addToken } from "@/redux/slices/tokenSlice";
 
 const Page = () => {
+  const  dispatch = useDispatch();
   const router = useRouter();
   const email =
     typeof window !== "undefined"
@@ -105,7 +109,8 @@ const Page = () => {
 
       if (response.data) {
         toast.success("Successfully registered");
-
+         console.log(response)
+         dispatch(addToken(resendHandler.data.accessToken))
         router.push("/login");
       }
     } catch (error) {

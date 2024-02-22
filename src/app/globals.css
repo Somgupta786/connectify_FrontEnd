@@ -123,3 +123,7 @@ input::placeholder {
 .new{
   backdrop-filter: blur(20px);
 }
+.desc {
+ /* or overflow-wrap: anywhere; */
+overflow-wrap: break-word;
+}

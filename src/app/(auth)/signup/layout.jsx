@@ -25,7 +25,7 @@ export default function Layout({ children }) {
               : {}
           }></div>
         <div className="progress-step end" style={
-            router === '/signup/verify'
+            router === '/signup/details/verify'
               ? { backgroundColor:"#75FBB9" }
               : {}
           }></div>
@@ -34,8 +34,8 @@ export default function Layout({ children }) {
           style={
             router === '/signup'
               ? { width: '0%' }
-              : router === '/signup/verify'
-              ? { transition: 'width 3s ease-in-out',width: '100%', }: router === '/signup/verify/details'
+              : router === '/signup/details/verify'
+              ? { transition: 'width 3s ease-in-out',width: '100%', }: router === '/signup/details'
               ? { transition: 'width 3s ease-in-out',width: '50%', }
               : {}
           }

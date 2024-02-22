@@ -7,7 +7,11 @@ import Loader from "@/components/loader";
 import { signIn, signOut, useSession } from "next-auth/react";
 import handler from "@/app/api/getAccessToken";
 import toast from 'react-hot-toast';
+import { UseSelector,useDispatch, useSelector } from "react-redux";
+
+import { addToken } from "@/redux/slices/tokenSlice";
 const Page = () => {
+  const  dispatch = useDispatch();
   const router = useRouter();
   const session = useSession();
   const [isClicked, setIsClicked] = useState(false);
@@ -106,7 +110,9 @@ const Page = () => {
         setLoad(false);
 
         if (response.data) {
+          
           toast.success("Successfully loggedIn!")
+          dispatch(addToken(response.data.accessToken))
           router.push("/communities");
         } else {
           setLoad(false);

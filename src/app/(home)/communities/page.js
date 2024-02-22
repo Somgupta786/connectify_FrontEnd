@@ -1,7 +1,29 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import SideBar from "@/components/Home/sideBar";
 import Card from "@/components/Home/card";
+import Popup from "@/components/Home/community/popup";
+import { useState } from 'react';
+import { UseSelector,useDispatch, useSelector } from "react-redux";
+
+import { addToken } from "@/redux/slices/tokenSlice";
 const page = () => {
+
+ 
+  
+  // const  dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(addToken("my name"))
+  // },[])
+ 
+  const[showPopup,setShowPopup]=useState(false)
+  const openPopup = () => {
+    setShowPopup(true);
+  };
+  
+  const closePopup = () => {
+    setShowPopup(false);
+  };
   return (
     <div className=" w-[100vw] flex bg-[#16202A] scroll-smooth ">
       <SideBar />
@@ -61,11 +83,13 @@ const page = () => {
             </div>
             <div  className=" flex gap-[10px] self-start">
              <img src="side.svg" className=" btn w-[56px] h-[7.2vh] hover:scale-[1.2] duration-[0.2s]"/>
-             <img src="side plus.svg" className="w-[56px] h-[7.2vh] hover:scale-[1.2] duration-[0.2s]"/>
+             <img src="side plus.svg" onClick={openPopup} className="w-[56px] h-[7.2vh] hover:scale-[1.2] duration-[0.2s]"/>
             </div>
           </div>
         </div>
+        <div className=" max-w-[55.4vw] bg-[#16202A] rounded-[12px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"></div>
       </div>
+      {<Popup onClose={closePopup} show={showPopup}/>}
     </div>
   );
 };
